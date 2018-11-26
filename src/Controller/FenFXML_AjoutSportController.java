@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Modele.ControlesDeSaisie;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -45,7 +46,14 @@ public class FenFXML_AjoutSportController implements Initializable
         }
         else
         {
-            System.out.println(texteNom.getText());
+            if(ControlesDeSaisie.VerifNomSport(texteNom.getText()))
+            {
+                System.out.println("ok");
+            }
+            else
+            {
+                boolean Bool = mainApp.afficheMessageErreur("Valeur incorrecte."); 
+            }
         }
     }
     
