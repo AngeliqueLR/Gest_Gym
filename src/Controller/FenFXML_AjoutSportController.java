@@ -39,13 +39,13 @@ public class FenFXML_AjoutSportController implements Initializable
 
     public void handleAjout()
     {
-        if(texteNom.getText() == null)
+        if(texteNom.getText().equals(""))
         {
             boolean Bool = mainApp.afficheMessageErreur("Veuillez insérer le nom d'un sport.");  
         }
         else
         {
-            
+            System.out.println(texteNom.getText());
         }
     }
     
