@@ -7,7 +7,9 @@ package Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -19,9 +21,13 @@ public class FenFXML_AjoutSportController implements Initializable
 {
 
     private MainApp mainApp;
+    
     private Stage dialogStage;
+    
     private boolean okClick = false;
 
+    @FXML
+    private TextField texteNom;
     /**
      * Initializes the controller class.
      */
@@ -33,7 +39,14 @@ public class FenFXML_AjoutSportController implements Initializable
 
     public void handleAjout()
     {
-        
+        if(texteNom.getText() == null)
+        {
+            boolean Bool = mainApp.afficheMessageErreur("Veuillez insérer le nom d'un sport.");  
+        }
+        else
+        {
+            
+        }
     }
     
     public void setDialogStage(Stage pDialogStage)
