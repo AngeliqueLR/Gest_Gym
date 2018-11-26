@@ -46,5 +46,10 @@ public class FenFXML_SportController implements Initializable
     public void setMainApp(MainApp pMainApp)
     {
         mainApp = pMainApp;
-    }    
+    }   
+    
+    public void handleAjoutSport()
+    {
+        boolean Bool = mainApp.afficheAjoutSport();  
+    }
 }

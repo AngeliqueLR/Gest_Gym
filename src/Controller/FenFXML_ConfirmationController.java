@@ -6,6 +6,7 @@
 package Controller;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,15 +22,13 @@ import javafx.stage.Stage;
 public class FenFXML_ConfirmationController implements Initializable
 {
 
+    private MainApp mainApp;
+    private Stage dialogStage;
     private boolean okClick = false;
     
     @FXML
-    private TextArea texteConfirmation;
+    private TextArea textConfirmation;
     
-    private Stage dialogStage;
-    
-    private MainApp mainApp;
-
     /**
      * Initializes the controller class.
      */
@@ -39,7 +38,7 @@ public class FenFXML_ConfirmationController implements Initializable
         // TODO
     }    
 
-   public void setDialogStage(Stage pDialogStage)
+    public void setDialogStage(Stage pDialogStage)
     {
         dialogStage = pDialogStage;
     }
@@ -48,15 +47,15 @@ public class FenFXML_ConfirmationController implements Initializable
     {
         mainApp = pMainApp;
     }
-
+    
+    public void setConfirmation(String pMessage)
+    {           
+       textConfirmation.setText(pMessage);
+    }
+    
     public boolean isOkClick()
     {
         return okClick;
-    }
-    
-    public void setMessageConfirmation(String pMessage)
-    {
-        texteConfirmation.setText(pMessage);
     }
     
     @FXML
@@ -65,5 +64,10 @@ public class FenFXML_ConfirmationController implements Initializable
         okClick = true;
         dialogStage.close();
     }
-
+    
+    @FXML
+    private void handleAnnul()
+    {
+        dialogStage.close();
+    }
 }

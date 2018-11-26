@@ -8,6 +8,7 @@ package Controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -16,6 +17,10 @@ import javafx.fxml.Initializable;
  */
 public class FenFXML_AjoutSportController implements Initializable
 {
+
+    private MainApp mainApp;
+    private Stage dialogStage;
+    private boolean okClick = false;
 
     /**
      * Initializes the controller class.
@@ -31,4 +36,18 @@ public class FenFXML_AjoutSportController implements Initializable
         
     }
     
+    public void setDialogStage(Stage pDialogStage)
+    {
+        dialogStage = pDialogStage;
+    }
+
+    public void setMainApp(MainApp pMainApp)
+    {
+        mainApp = pMainApp;
+    }
+
+    public boolean isOkClick()
+    {
+        return okClick;
+    }
 }

@@ -19,7 +19,7 @@
         </rowConstraints>
          <children>
             <ListView fx:id="listeSport" prefHeight="238.0" prefWidth="360.0" />
-            <Button mnemonicParsing="false" style="-fx-background-color: #dd290d;" text="Ajouter" textFill="WHITE" GridPane.rowIndex="1">
+            <Button mnemonicParsing="false" onAction="#handleAjoutSport" style="-fx-background-color: #dd290d;" text="Ajouter" textFill="WHITE" GridPane.rowIndex="1">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

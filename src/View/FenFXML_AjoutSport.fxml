@@ -7,8 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="110.0" prefWidth="347.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Controller.FenFXML_AjoutSportController">
+<AnchorPane id="AnchorPane" prefHeight="110.0" prefWidth="347.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FenFXML_AjoutSportController">
    <children>
       <ImageView fitHeight="108.0" fitWidth="130.0" layoutX="211.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
          <image>

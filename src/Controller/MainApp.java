@@ -65,7 +65,7 @@ public class MainApp extends Application
     {
         try
         {
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/View/FenFXML_ConfirmationReservation.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/View/FenFXML_Confirmation.fxml"));
             AnchorPane page = (AnchorPane)loader.load();
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Confirmation de la réservation.");
@@ -74,7 +74,7 @@ public class MainApp extends Application
             dialogStage.setScene(scene);
             
             // Place l'étudiant dans le controleur
-            FenFXML_ConfirmationReservationController controleur = loader.getController();
+            FenFXML_ConfirmationController controleur = loader.getController();
             controleur.setDialogStage(dialogStage);
             controleur.setConfirmation(pMessage);
             
@@ -131,7 +131,7 @@ public class MainApp extends Application
     {
         try
         {
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/View/FenFXML_Confirmation.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/View/FenFXML_Reussi.fxml"));
             AnchorPane page = (AnchorPane)loader.load();
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Confirmation.");
@@ -140,9 +140,41 @@ public class MainApp extends Application
             dialogStage.setScene(scene);
             
             // Place l'étudiant dans le controleur
-            FenFXML_ConfirmationController controleur = loader.getController();
+            FenFXML_ReussiController controleur = loader.getController();
             controleur.setDialogStage(dialogStage);
             controleur.setMessageConfirmation(pMessage);
+            
+            // Donne accès à la classe principale à la classe controleur
+            controleur.setMainApp(this);
+            
+            // Affiche la boite de dialogue et attend que l'utilisateur la ferme
+            dialogStage.showAndWait();
+            
+            return controleur.isOkClick();
+        }
+        catch(IOException ioe)
+        {
+            System.out.println("ERREUR chargement boite dialogue:" + ioe.getMessage());
+    
+            return false;
+        }
+    }
+
+    boolean afficheAjoutSport()
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/View/FenFXML_AjoutSport.fxml"));
+            AnchorPane page = (AnchorPane)loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Ajouter un sport.");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            
+            // Place l'étudiant dans le controleur
+            FenFXML_AjoutSportController controleur = loader.getController();
+            controleur.setDialogStage(dialogStage);
             
             // Donne accès à la classe principale à la classe controleur
             controleur.setMainApp(this);
