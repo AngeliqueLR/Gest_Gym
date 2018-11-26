@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="211.0" prefWidth="330.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FenFXML_ErreurController">
+   <children>
+      <Label layoutX="13.0" layoutY="59.0" text="Attention : " textFill="RED">
+         <font>
+            <Font name="Cambria Italic" size="22.0" />
+         </font>
+      </Label>
+      <Button layoutX="284.0" layoutY="176.0" mnemonicParsing="false" onAction="#handleOk" style="-fx-background-color: red;" text="OK" textFill="WHITE" />
+      <TextArea fx:id="texteMessage" layoutX="13.0" layoutY="86.0" prefHeight="84.0" prefWidth="304.0" style="-fx-border-color: red;" wrapText="true">
+         <font>
+            <Font name="Cambria Italic" size="14.0" />
+         </font>
+      </TextArea>
+      <ImageView fitHeight="70.0" fitWidth="82.0" layoutX="246.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Image/erreur.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
