@@ -24,6 +24,11 @@ public class FenFXML_AjoutSportController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
-    }    
+    }
+
+    public void handleAjout()
+    {
+        
+    }
     
 }
