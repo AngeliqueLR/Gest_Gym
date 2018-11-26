@@ -111,7 +111,7 @@ public class FenFXML_PlanningController implements Initializable
         MesRequetes.RecupererSalle();
         
         tableHoraires.setVisible(false);
-        cmbSalle.setItems(MesRequetes.retournerListeSalle());
+        cmbSalle.setItems(Requetes.retournerListeSalle());
         uneRequete = new Requetes();
         
         tabJour[0] = "Horaires";        
@@ -312,5 +312,88 @@ public class FenFXML_PlanningController implements Initializable
         int mois7 = Integer.parseInt(Date7[1]);
         int annee7 = Integer.parseInt(Date7[0]);
         dateFin.setText(" " + jour7 + "/" + mois7 + "/" + annee7);
+        MesRequetes.resetTableau();
+        if(dateDebut.getValue() != null && cmbSalle.getValue() != null)
+        {
+            //RECUPERE LA DATE, LA SALLE ET LE PLANNING
+            LocalDate DateChoisie = dateDebut.getValue();
+            String Salle = cmbSalle.getValue().toString();
+            MesRequetes.RecupererPlanning(DateChoisie, Salle);
+
+            ////CALCULE TOUS LES JOURS DE LA SEMAINE ET LES AFFICHES EN ENTETE DU TABLEAU
+            //JOUR 1
+            String Date[] = new String[3];
+            Date = dateChoisie.split("-");
+            int jour = Integer.parseInt(Date[2]);
+            int mois = Integer.parseInt(Date[1]);
+            int annee = Integer.parseInt(Date[0]);
+            columnJ1.setText(jour + "/" + mois + "/" + annee);
+            tabJour[1] = jour + "/" + mois + "/" + annee;
+            
+            //JOUR 2
+            dateChoisie = dateDebut.getValue().plusDays(1).toString();
+            String Date2[] = new String[3];
+            Date2 = dateChoisie.split("-");
+            int jour2 = Integer.parseInt(Date2[2]);
+            int mois2 = Integer.parseInt(Date2[1]);
+            int annee2 = Integer.parseInt(Date2[0]);
+            columnJ2.setText(jour2 + "/" + mois2 + "/" + annee2);
+            tabJour[2] = jour2 + "/" + mois2 + "/" + annee2;
+
+            //JOUR 3
+            dateChoisie = dateDebut.getValue().plusDays(2).toString();
+            String Date3[] = new String[3];
+            Date3 = dateChoisie.split("-");
+            int jour3 = Integer.parseInt(Date3[2]);
+            int mois3 = Integer.parseInt(Date3[1]);
+            int annee3 = Integer.parseInt(Date3[0]);
+            columnJ3.setText(jour3 + "/" + mois3 + "/" + annee3);
+            tabJour[3] = jour3 + "/" + mois3 + "/" + annee3;
+            
+            //JOUR 4
+            dateChoisie = dateDebut.getValue().plusDays(3).toString();
+            String Date4[] = new String[3];
+            Date4 = dateChoisie.split("-");
+            int jour4 = Integer.parseInt(Date4[2]);
+            int mois4 = Integer.parseInt(Date4[1]);
+            int annee4 = Integer.parseInt(Date4[0]);
+            columnJ4.setText(jour4 + "/" + mois4 + "/" + annee4);
+            tabJour[4] = jour4 + "/" + mois4 + "/" + annee4;
+            
+            //JOUR 5
+            dateChoisie = dateDebut.getValue().plusDays(4).toString();
+            String Date5[] = new String[3];
+            Date5 = dateChoisie.split("-");
+            int jour5 = Integer.parseInt(Date5[2]);
+            int mois5 = Integer.parseInt(Date5[1]);
+            int annee5 = Integer.parseInt(Date5[0]);
+            columnJ5.setText(jour5 + "/" + mois5 + "/" + annee5);
+            tabJour[5] = jour5 + "/" + mois5 + "/" + annee5;
+            
+            //JOUR 6
+            dateChoisie = dateDebut.getValue().plusDays(5).toString();
+            String Date6[] = new String[3];
+            Date6 = dateChoisie.split("-");
+            int jour6 = Integer.parseInt(Date6[2]);
+            int mois6 = Integer.parseInt(Date6[1]);
+            int annee6 = Integer.parseInt(Date6[0]);
+            columnJ6.setText(jour6 + "/" + mois6 + "/" + annee6);
+            tabJour[6] = jour6 + "/" + mois6 + "/" + annee6;
+
+            ////ALIMENTATION DU TABLEAU
+            columnHoraires.setCellValueFactory(new PropertyValueFactory<Planning, String>("plageHoraires"));
+            columnJ1.setCellValueFactory(new PropertyValueFactory<Planning, String>("J1"));
+            columnJ2.setCellValueFactory(new PropertyValueFactory<Planning, String>("J2"));
+            columnJ3.setCellValueFactory(new PropertyValueFactory<Planning, String>("J3"));
+            columnJ4.setCellValueFactory(new PropertyValueFactory<Planning, String>("J4"));
+            columnJ5.setCellValueFactory(new PropertyValueFactory<Planning, String>("J5"));
+            columnJ6.setCellValueFactory(new PropertyValueFactory<Planning, String>("J6"));
+            columnJ7.setCellValueFactory(new PropertyValueFactory<Planning, String>("J7"));
+            LesHoraires = MesRequetes.retournerPlanning();
+            tableHoraires.setItems(LesHoraires);
+
+            ////AFFICHAGE DU TABLEAU
+            tableHoraires.setVisible(true);
+        }
     }
 }
