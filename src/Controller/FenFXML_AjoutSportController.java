@@ -29,6 +29,8 @@ public class FenFXML_AjoutSportController implements Initializable
 
     @FXML
     private TextField texteNom;
+    
+    private String message;
     /**
      * Initializes the controller class.
      */
@@ -48,7 +50,8 @@ public class FenFXML_AjoutSportController implements Initializable
         {
             if(ControlesDeSaisie.VerifNomSport(texteNom.getText()))
             {
-                System.out.println("ok");
+                message = "Voulez-vous vraiment insérer le sport " + texteNom.getText();
+                boolean Bool = mainApp.afficheConfirmationDialog(message); 
             }
             else
             {

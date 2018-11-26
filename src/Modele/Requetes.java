@@ -77,6 +77,39 @@ public class Requetes
     {
         return LesSports;
     }
+    
+    public boolean SportExiste(String pSport)
+    {
+        boolean Existe = true;
+        try
+	{
+            Class.forName(pilote);
+            conn = DriverManager.getConnection(url,"root","");
+            stmt = conn.createStatement();			            
+            rs = stmt.executeQuery("select * from sport where nomSport = '" + pSport + "'");			            
+            
+            if(null == rs.getString("nomSport"))
+            {
+                Existe = false;
+            }
+            
+            rs.close();
+            stmt.close();
+            conn.close();
+	}
+	catch (SQLException E)
+	{
+            System.out.println("SQLException: " + E.getMessage());
+            System.out.println("SQLState:   " + E.getSQLState());
+            System.out.println("VendorError:  " + E.getErrorCode());
+	}
+	catch (ClassNotFoundException e)
+	{
+            System.out.println("ERREUR Driver " + e.getMessage());
+	}
+        
+        return Existe;
+    }
     ////////////////////////////////
     //////////ASSOCIATION//////////
     //////////////////////////////
