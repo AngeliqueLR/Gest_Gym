@@ -27,10 +27,10 @@ public class Requetes
     private String pilote;
     private String url;
     private Association uneAssocitation;
-    private ObservableList<Association> LesAssociations;
-    private ObservableList<Salle> LesSalles;
-    private ObservableList<Sport> LesSports;
-    private ObservableList<Planning> MonPlanning;
+    private static ObservableList<Association> LesAssociations;
+    private static ObservableList<Salle> LesSalles;
+    private static ObservableList<Sport> LesSports;
+    private static ObservableList<Planning> MonPlanning;
 
     
     public Requetes ()
@@ -73,7 +73,7 @@ public class Requetes
 	}
     }
     
-    public ObservableList<Sport> retournerListeSport()
+    public static ObservableList<Sport> retournerListeSport()
     {
         return LesSports;
     }
@@ -88,7 +88,7 @@ public class Requetes
             stmt = conn.createStatement();			            
             rs = stmt.executeQuery("select * from sport where nomSport = '" + pSport + "'");			            
             
-            if(null == rs.getString("nomSport"))
+            if(!(rs.next()))
             {
                 Existe = false;
             }
@@ -96,6 +96,8 @@ public class Requetes
             rs.close();
             stmt.close();
             conn.close();
+            
+            return Existe;
 	}
 	catch (SQLException E)
 	{
@@ -109,6 +111,30 @@ public class Requetes
 	}
         
         return Existe;
+    }
+    
+    public void AjoutSport(String pSport)
+    {
+        try
+	{
+            Class.forName(pilote);
+            conn = DriverManager.getConnection(url,"root","");
+            stmt = conn.createStatement();		            
+            stmt.executeUpdate("insert into sport values ('" + pSport + "');");
+               		
+            stmt.close();
+            conn.close();
+	}
+	catch (SQLException E)
+	{
+            System.out.println("SQLException: " + E.getMessage());
+            System.out.println("SQLState:   " + E.getSQLState());
+            System.out.println("VendorError:  " + E.getErrorCode());
+	}
+	catch (ClassNotFoundException e)
+	{
+            System.out.println("ERREUR Driver " + e.getMessage());
+	}
     }
     ////////////////////////////////
     //////////ASSOCIATION//////////
@@ -142,7 +168,7 @@ public class Requetes
 	}
     }
     
-    public ObservableList<Association> retournerListeAssociation()
+    public static ObservableList<Association> retournerListeAssociation()
     {
         return LesAssociations;
     }
@@ -179,7 +205,7 @@ public class Requetes
 	}
     }
     
-    public ObservableList<Salle> retournerListeSalle()
+    public static ObservableList<Salle> retournerListeSalle()
     {
         return LesSalles;
     } 
@@ -318,7 +344,7 @@ public class Requetes
 	}
     }
     
-    public ObservableList<Planning> retournerPlanning()
+    public static ObservableList<Planning> retournerPlanning()
     {
         return MonPlanning;
     }

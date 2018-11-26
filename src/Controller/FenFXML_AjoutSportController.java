@@ -6,6 +6,7 @@
 package Controller;
 
 import Modele.ControlesDeSaisie;
+import Modele.Requetes;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -31,6 +32,8 @@ public class FenFXML_AjoutSportController implements Initializable
     private TextField texteNom;
     
     private String message;
+    
+    private Requetes Requete = new Requetes();
     /**
      * Initializes the controller class.
      */
@@ -50,8 +53,25 @@ public class FenFXML_AjoutSportController implements Initializable
         {
             if(ControlesDeSaisie.VerifNomSport(texteNom.getText()))
             {
-                message = "Voulez-vous vraiment insérer le sport " + texteNom.getText();
-                boolean Bool = mainApp.afficheConfirmationDialog(message); 
+                if(Requete.SportExiste(texteNom.getText()))
+                {
+                    boolean Bool = mainApp.afficheMessageErreur("Ce sport existe déjà."); 
+                }
+                else
+                {
+                    message = "Voulez-vous vraiment insérer le sport " + texteNom.getText();
+                    boolean Bool = mainApp.afficheConfirmationDialog(message);
+                    
+                    if(Bool)
+                    {
+                        Requete.AjoutSport(texteNom.getText());
+                        
+                        boolean Bool1 = mainApp.afficheMessageReussite("Ajout réussi avec succès.");
+                        dialogStage.close();
+                        okClick = true;
+                    }
+                }
+                
             }
             else
             {

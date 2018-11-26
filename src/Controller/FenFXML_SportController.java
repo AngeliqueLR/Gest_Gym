@@ -8,7 +8,9 @@ package Controller;
 import Modele.Requetes;
 import Modele.Sport;
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -51,5 +53,13 @@ public class FenFXML_SportController implements Initializable
     public void handleAjoutSport()
     {
         boolean Bool = mainApp.afficheAjoutSport();  
+        if(Bool)
+        {
+            MesRequetes.RecupererSports();
+            
+            ObservableList<Sport> lesSports = null;
+            listeSport.setItems(lesSports);
+            listeSport.setItems(MesRequetes.retournerListeSport());
+        }
     }
 }
