@@ -23,6 +23,106 @@ public class Association
     private String Ville;
     private String Adresse;
     private String NomResponsable;
+
+    public String getNomAssociation()
+    {
+        return NomAssociation;
+    }
+
+    public void setNomAssociation(String NomAssociation)
+    {
+        this.NomAssociation = NomAssociation;
+    }
+
+    public String getVille()
+    {
+        return Ville;
+    }
+
+    public void setVille(String Ville)
+    {
+        this.Ville = Ville;
+    }
+
+    public String getAdresse()
+    {
+        return Adresse;
+    }
+
+    public void setAdresse(String Adresse)
+    {
+        this.Adresse = Adresse;
+    }
+
+    public String getNomResponsable()
+    {
+        return NomResponsable;
+    }
+
+    public void setNomResponsable(String NomResponsable)
+    {
+        this.NomResponsable = NomResponsable;
+    }
+
+    public ObservableList<Sport> getSportsPratiques()
+    {
+        return SportsPratiques;
+    }
+
+    public void setSportsPratiques(ObservableList<Sport> SportsPratiques)
+    {
+        this.SportsPratiques = SportsPratiques;
+    }
+
+    public Connection getConn()
+    {
+        return conn;
+    }
+
+    public void setConn(Connection conn)
+    {
+        this.conn = conn;
+    }
+
+    public Statement getStmt()
+    {
+        return stmt;
+    }
+
+    public void setStmt(Statement stmt)
+    {
+        this.stmt = stmt;
+    }
+
+    public ResultSet getRs()
+    {
+        return rs;
+    }
+
+    public void setRs(ResultSet rs)
+    {
+        this.rs = rs;
+    }
+
+    public String getPilote()
+    {
+        return pilote;
+    }
+
+    public void setPilote(String pilote)
+    {
+        this.pilote = pilote;
+    }
+
+    public String getUrl()
+    {
+        return url;
+    }
+
+    public void setUrl(String url)
+    {
+        this.url = url;
+    }
     private ObservableList<Sport> SportsPratiques;
     private Connection conn;
     private Statement stmt;

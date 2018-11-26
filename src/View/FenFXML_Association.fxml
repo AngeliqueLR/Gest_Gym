@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FenFXML_AssociationController">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="670.0" style="-fx-background-color: white;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Controller.FenFXML_AssociationController">
+   <children>
+      <GridPane layoutX="14.0" layoutY="14.0" prefHeight="371.0" prefWidth="424.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="338.0" minHeight="10.0" prefHeight="338.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="178.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ListView fx:id="listeAssociation" prefHeight="200.0" prefWidth="200.0" />
+            <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.rowIndex="1">
+               <children>
+                  <Button layoutX="495.0" layoutY="288.0" mnemonicParsing="false" style="-fx-background-color: #e00202;" text="Ajouter" textFill="WHITE" />
+                  <Button layoutX="503.0" layoutY="325.0" mnemonicParsing="false" style="-fx-background-color: #5778e0;" text="Modifier" textFill="WHITE" />
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="454.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Image/association.jpg" />
+         </image>
+      </ImageView>
+   </children>
 </AnchorPane>
