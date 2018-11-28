@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
 /**
@@ -28,6 +29,9 @@ public class FenFXML_SportController implements Initializable
     @FXML
     private ListView<Sport> listeSport;
     
+    @FXML
+    private Button btnModif; 
+    
     private Requetes MesRequetes = new Requetes();
     /**
      * Initializes the controller class.
@@ -36,6 +40,7 @@ public class FenFXML_SportController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
+        btnModif.setVisible(false);
         MesRequetes.RecupererSports();
         
         listeSport.setItems(MesRequetes.retournerListeSport());
@@ -61,5 +66,26 @@ public class FenFXML_SportController implements Initializable
             listeSport.setItems(lesSports);
             listeSport.setItems(MesRequetes.retournerListeSport());
         }
+    }
+    
+    public void handleModifSport()
+    {
+        String SportAModifier = listeSport.getSelectionModel().getSelectedItem().toString();
+        
+        boolean Bool = mainApp.afficheModifSport(SportAModifier);  
+        if(Bool)
+        {
+            MesRequetes.RecupererSports();
+            
+            ObservableList<Sport> lesSports = null;
+            listeSport.setItems(lesSports);
+            listeSport.setItems(MesRequetes.retournerListeSport());
+            btnModif.setVisible(false);
+        }
+    }
+    
+    public void handleAfficheBtnModif()
+    {
+        btnModif.setVisible(true);
     }
 }

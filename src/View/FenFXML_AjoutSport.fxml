@@ -19,6 +19,6 @@
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
-      <Button layoutX="6.0" layoutY="79.0" mnemonicParsing="false" onAction="#handleAjout" style="-fx-background-color: #cc0909;" text="Ajouter" textFill="WHITE" />
+      <Button fx:id="btnAjout" layoutX="6.0" layoutY="79.0" mnemonicParsing="false" onAction="#handleAjout" style="-fx-background-color: #cc0909;" text="Ajouter" textFill="WHITE" />
    </children>
 </AnchorPane>

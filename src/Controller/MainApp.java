@@ -191,4 +191,37 @@ public class MainApp extends Application
             return false;
         }
     }
+
+    boolean afficheModifSport(String pSport)
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/View/FenFXML_AjoutSport.fxml"));
+            AnchorPane page = (AnchorPane)loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Ajouter un sport.");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            
+            // Place l'étudiant dans le controleur
+            FenFXML_AjoutSportController controleur = loader.getController();
+            controleur.setDialogStage(dialogStage);
+            
+            controleur.getModif(pSport);
+            // Donne accès à la classe principale à la classe controleur
+            controleur.setMainApp(this);
+            
+            // Affiche la boite de dialogue et attend que l'utilisateur la ferme
+            dialogStage.showAndWait();
+            
+            return controleur.isOkClick();
+        }
+        catch(IOException ioe)
+        {
+            System.out.println("ERREUR chargement boite dialogue:" + ioe.getMessage());
+    
+            return false;
+        }
+    }
 }

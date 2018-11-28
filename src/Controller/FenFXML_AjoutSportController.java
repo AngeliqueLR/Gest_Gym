@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -34,6 +35,13 @@ public class FenFXML_AjoutSportController implements Initializable
     private String message;
     
     private Requetes Requete = new Requetes();
+    
+    @FXML
+    private Button btnAjout;
+    
+    private int Modif = 0;
+    
+    private String SportAModifier;
     /**
      * Initializes the controller class.
      */
@@ -59,14 +67,31 @@ public class FenFXML_AjoutSportController implements Initializable
                 }
                 else
                 {
-                    message = "Voulez-vous vraiment insérer le sport " + texteNom.getText();
+                    if(Modif == 0)
+                    {
+                        message = "Voulez-vous vraiment insérer le sport " + texteNom.getText();
+                    }
+                    else
+                    {
+                        message = "Voulez-vous vraiment modifier le sport " + SportAModifier + " pour : " + texteNom.getText();
+                    }
                     boolean Bool = mainApp.afficheConfirmationDialog(message);
                     
                     if(Bool)
                     {
-                        Requete.AjoutSport(texteNom.getText());
+                        if(Modif == 0)
+                        {
+                            Requete.AjoutSport(texteNom.getText());
                         
-                        boolean Bool1 = mainApp.afficheMessageReussite("Ajout réussi avec succès.");
+                            boolean Bool1 = mainApp.afficheMessageReussite("Ajout réussi avec succès.");
+                        }
+                        else
+                        {
+                            Requete.ModifSport(texteNom.getText(), SportAModifier);
+                        
+                            boolean Bool1 = mainApp.afficheMessageReussite("Ajout réussi avec succès.");
+                        }
+                        
                         dialogStage.close();
                         okClick = true;
                     }
@@ -93,5 +118,13 @@ public class FenFXML_AjoutSportController implements Initializable
     public boolean isOkClick()
     {
         return okClick;
+    }
+
+    void getModif(String pSport)
+    {
+        Modif = 1;
+        SportAModifier = pSport;
+        btnAjout.setText("Modifier");
+        texteNom.setText(pSport);
     }
 }

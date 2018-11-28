@@ -136,6 +136,31 @@ public class Requetes
             System.out.println("ERREUR Driver " + e.getMessage());
 	}
     }
+    
+    
+    public void ModifSport(String pSport, String pSportAModifier)
+    {
+        try
+	{
+            Class.forName(pilote);
+            conn = DriverManager.getConnection(url,"root","");
+            stmt = conn.createStatement();		            
+            stmt.executeUpdate("update sport set nomSport = '" + pSport + "' where nomSport = '" + pSportAModifier + "';");
+               		
+            stmt.close();
+            conn.close();
+	}
+	catch (SQLException E)
+	{
+            System.out.println("SQLException: " + E.getMessage());
+            System.out.println("SQLState:   " + E.getSQLState());
+            System.out.println("VendorError:  " + E.getErrorCode());
+	}
+	catch (ClassNotFoundException e)
+	{
+            System.out.println("ERREUR Driver " + e.getMessage());
+	}
+    }
     ////////////////////////////////
     //////////ASSOCIATION//////////
     //////////////////////////////
