@@ -19,6 +19,7 @@ import javafx.collections.ObservableList;
  */
 public class Sport
 {
+    private int numSport;
     private String Nom;
     private ObservableList<Salle> CollectionSalles;
     private Connection conn;
@@ -27,8 +28,9 @@ public class Sport
     private String pilote = "org.gjt.mm.mysql.Driver";
     private String url = "jdbc:mysql://localhost/gest_gymn";
     
-    public Sport(String pNom)
+    public Sport(int pNumSport, String pNom)
     {
+        numSport = pNumSport;
         Nom = pNom;
         CollectionSalles = FXCollections.observableArrayList();
         try
@@ -41,7 +43,7 @@ public class Sport
             conn = DriverManager.getConnection(url,"root","");
             stmt = conn.createStatement();
 
-            rs = stmt.executeQuery("select refSalle from accueillir where nomSportAutorise = '" + pNom + "'");
+            rs = stmt.executeQuery("select refSalle from accueillir where numSportAutorise = '" + pNumSport + "'");
 
             while (rs.next())
             {
@@ -62,6 +64,16 @@ public class Sport
 	{
             System.out.println("ERREUR Driver " + e.getMessage());
 	}
+    }
+
+    public int getNumSport()
+    {
+        return numSport;
+    }
+
+    public void setNumSport(int numSport)
+    {
+        this.numSport = numSport;
     }
     
     public void setCollectionSalles(ObservableList<Salle> pLesSalles)

@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -55,7 +57,7 @@ public class Requetes
             rs = stmt.executeQuery("select * from sport");			            
             while (rs.next())
             {
-                LesSports.add(new Sport(rs.getString("nomSport")));
+                LesSports.add(new Sport(rs.getInt("numSport"), rs.getString("nomSport")));
             }           			            
             rs.close();
             stmt.close();
@@ -120,7 +122,7 @@ public class Requetes
             Class.forName(pilote);
             conn = DriverManager.getConnection(url,"root","");
             stmt = conn.createStatement();		            
-            stmt.executeUpdate("insert into sport values ('" + pSport + "');");
+            stmt.executeUpdate("insert into sport (nomSport) values ('" + pSport + "');");
                		
             stmt.close();
             conn.close();
@@ -138,14 +140,14 @@ public class Requetes
     }
     
     
-    public void ModifSport(String pSport, String pSportAModifier)
+    public void ModifSport(String pSport, Sport pSportAModifier)
     {
         try
 	{
             Class.forName(pilote);
             conn = DriverManager.getConnection(url,"root","");
-            stmt = conn.createStatement();		            
-            stmt.executeUpdate("update sport set nomSport = '" + pSport + "' where nomSport = '" + pSportAModifier + "';");
+            stmt = conn.createStatement();
+            stmt.executeUpdate("update sport set nomSport = '" + pSport + "' where numSport = '" + pSportAModifier.getNumSport() + "';");
                		
             stmt.close();
             conn.close();
@@ -235,17 +237,53 @@ public class Requetes
         return LesSalles;
     } 
     
+    public ObservableList<Salle> retournerSalleSport(LocalDate pDate, String pHoraire, Sport pSport)
+    {
+        ObservableList<Salle> SalleSport;
+        SalleSport = FXCollections.observableArrayList();
+        
+        try
+        {
+            Class.forName(pilote);
+
+            conn = DriverManager.getConnection(url,"root","");
+            stmt = conn.createStatement();
+
+            rs = stmt.executeQuery("Select salle.refSalle from salle, accueillir where salle.refSalle = accueillir.refSalle and numSportAutorise = " + pSport.getNumSport() + " and salle. refSalle not in (select reservation.refSalle from reservation, accueillir where reservation.refSalle = accueillir.refSalle and numSportAutorise = '" + pSport.getNumSport() + "' and heure = '" + pHoraire + "' and date = '" + pDate + "')");
+
+            while (rs.next())
+            {
+                SalleSport.add(new Salle(rs.getString("refSalle")));
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        }
+        catch (SQLException E)
+	{
+            System.out.println("SQLException: " + E.getMessage());
+            System.out.println("SQLState:   " + E.getSQLState());
+            System.out.println("VendorError:  " + E.getErrorCode());
+        } catch (ClassNotFoundException ex)
+        {
+            Logger.getLogger(Salle.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return SalleSport;
+    }
+    
     ////////////////////////////////
     //////////RESERVATION//////////
     //////////////////////////////
-    public void InsererReservation(String pSalle, LocalDate pDate, String pHeureD, String pHeureF, String pNomAssoc)
+    public void InsererReservation(String pSalle, LocalDate pDate, String pHeureD, String pNomAssoc)
     {		
         try
 	{
             Class.forName(pilote);
             conn = DriverManager.getConnection(url,"root","");
             stmt = conn.createStatement();		            
-            stmt.executeUpdate("insert into reservation values ('" + pSalle + "', '" + pDate + "', '" + pHeureD + "', '" + pHeureF + "', '" + pNomAssoc + "');");
+            stmt.executeUpdate("insert into reservation values ('" + pSalle + "', '" + pDate + "', '" + pHeureD + "', '" + pNomAssoc + "');");
                		
             stmt.close();
             conn.close();
@@ -317,7 +355,7 @@ public class Requetes
                 Class.forName(pilote);
                 conn = DriverManager.getConnection(url,"root","");
                 stmt = conn.createStatement();		            
-                rs = stmt.executeQuery("select * from reservation where heureD = '" + horaire[i] + ":00' and refSalle = '" + pSalle + "' order by date, heureD");
+                rs = stmt.executeQuery("select * from reservation where heure = '" + horaire[i] + ":00' and refSalle = '" + pSalle + "' order by date, heure");
                 while(rs.next())
                 {
                     if(date1.equals(rs.getString("date")))

@@ -70,7 +70,7 @@ public class FenFXML_SportController implements Initializable
     
     public void handleModifSport()
     {
-        String SportAModifier = listeSport.getSelectionModel().getSelectedItem().toString();
+        Sport SportAModifier = listeSport.getSelectionModel().getSelectedItem();
         
         boolean Bool = mainApp.afficheModifSport(SportAModifier);  
         if(Bool)

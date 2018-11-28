@@ -7,6 +7,7 @@ package Controller;
 
 import Modele.ControlesDeSaisie;
 import Modele.Requetes;
+import Modele.Sport;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -41,7 +42,7 @@ public class FenFXML_AjoutSportController implements Initializable
     
     private int Modif = 0;
     
-    private String SportAModifier;
+    private Sport SportAModifier;
     /**
      * Initializes the controller class.
      */
@@ -120,11 +121,11 @@ public class FenFXML_AjoutSportController implements Initializable
         return okClick;
     }
 
-    void getModif(String pSport)
+    void getModif(Sport pSport)
     {
         Modif = 1;
         SportAModifier = pSport;
         btnAjout.setText("Modifier");
-        texteNom.setText(pSport);
+        texteNom.setText(pSport.toString());
     }
 }

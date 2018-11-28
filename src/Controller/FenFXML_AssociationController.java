@@ -6,14 +6,20 @@
 package Controller;
 
 import Modele.Association;
+import Modele.Planning;
 import Modele.Requetes;
+import Modele.Sport;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
@@ -26,9 +32,24 @@ public class FenFXML_AssociationController implements Initializable
     private MainApp mainApp;
 
     @FXML
-    private ListView listeAssociation;
+    private TableView listeAssociation;
     
+    @FXML
+    private TableColumn colonneNom;
+    
+    @FXML
+    private TableColumn colonneAdresse;
+    
+    @FXML
+    private TableColumn colonneVille;
+    
+    @FXML
+    private TableColumn colonneResponsable;
+            
     private Requetes MesRequetes = new Requetes();
+    
+    @FXML
+    private Button btnModif;
     /**
      * Initializes the controller class.
      */
@@ -37,15 +58,18 @@ public class FenFXML_AssociationController implements Initializable
     {
         // TODO
         MesRequetes.RecupererAssociations();
-        ObservableList<String> LesAssoc = FXCollections.observableArrayList();
+        
         ObservableList<Association> Assoc = FXCollections.observableArrayList();
         Assoc = Requetes.retournerListeAssociation();
-        LesAssoc.add("NOM - ADRESSE - VILLE - NOM RESPONSABLE");
-        for(int i=0; i < Assoc.size(); i++)
-        {
-            LesAssoc.add(Assoc.get(i).getNomAssociation() + " - " + Assoc.get(i).getAdresse() + " - " + Assoc.get(i).getVille() + " - " + Assoc.get(i).getNomResponsable());
-        }
-        listeAssociation.setItems(LesAssoc);
+        
+        colonneNom.setCellValueFactory(new PropertyValueFactory<Planning, String>("NomAssociation"));
+        colonneAdresse.setCellValueFactory(new PropertyValueFactory<Planning, String>("Adresse"));
+        colonneVille.setCellValueFactory(new PropertyValueFactory<Planning, String>("Ville"));
+        colonneResponsable.setCellValueFactory(new PropertyValueFactory<Planning, String>("NomResponsable"));
+        
+        listeAssociation.setItems(Assoc);
+        
+        btnModif.setVisible(false);
     }    
 
     /**
@@ -55,6 +79,27 @@ public class FenFXML_AssociationController implements Initializable
     public void setMainApp(MainApp pMainApp)
     {
         mainApp = pMainApp;
+    }
+    
+    public void handleChoixAssoc()
+    {
+        btnModif.setVisible(true);
+    }
+    
+    public void handleModifAssoc()
+    {
+        Association AssocAModif = (Association)listeAssociation.getSelectionModel().getSelectedItem();
+        
+        boolean Bool = mainApp.afficheConfirmationDialog(AssocAModif.toString());  
+        /*if(Bool)
+        {
+            MesRequetes.RecupererSports();
+            
+            ObservableList<Sport> lesSports = null;
+            listeSport.setItems(lesSports);
+            listeSport.setItems(MesRequetes.retournerListeSport());
+            btnModif.setVisible(false);
+        }*/
     }
     
 }

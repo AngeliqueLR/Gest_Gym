@@ -6,6 +6,7 @@
 package Controller;
 
 import Modele.Requetes;
+import Modele.Sport;
 import java.io.IOException;
 import java.time.LocalDate;
 import javafx.application.Application;
@@ -192,7 +193,7 @@ public class MainApp extends Application
         }
     }
 
-    boolean afficheModifSport(String pSport)
+    boolean afficheModifSport(Sport pSport)
     {
         try
         {

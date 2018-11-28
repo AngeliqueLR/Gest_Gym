@@ -114,7 +114,7 @@ public class FenFXML_ReservationController implements Initializable
         
         LocalDate dateReservation; 
         String plageHoraires;
-        String nomSport;
+        Sport Sport;
         
         if (cmbAssociation.getValue() != null && dateDateReserv.getValue() != null && cmbHeure.getValue() != null && cmbSport.getValue() != null)
         {   
@@ -153,12 +153,12 @@ public class FenFXML_ReservationController implements Initializable
                 String HeureDebut;
                 HeureDebut = Horaires[0];
                 
-                nomSport = cmbSport.getValue().toString();
+                Sport = cmbSport.getValue();
 
                 /////RECUPERATION DES SALLES EN FONCTIONS DES INFOS RENTREES
                 ObservableList<Salle> SalleSport;
                 SalleSport = FXCollections.observableArrayList();
-                SalleSport = Salle.retournerSalleSport(dateReservation, HeureDebut, nomSport); 
+                SalleSport = MesRequetes.retournerSalleSport(dateReservation, HeureDebut, Sport); 
 
                 /////SI AUCUNE SALLE DISPO : MESSAGE ERREUR
                 if(SalleSport.isEmpty()) 
@@ -254,7 +254,7 @@ public class FenFXML_ReservationController implements Initializable
                 {
                     /////INSERE LES DONNEES
                     Requetes Inserer = new Requetes();
-                    Inserer.InsererReservation(nomSalle, dateReservation, HeureDebut, HeureFin, nomAssociation);
+                    Inserer.InsererReservation(nomSalle, dateReservation, HeureDebut, nomAssociation);
                     
                     /////AFFICHE UNE BOITE DE DIALOGUE QUI CONFIRME QUE L'AJOUT A ETE FAIT
                     message = " Réservation effectuée avec succès. ";

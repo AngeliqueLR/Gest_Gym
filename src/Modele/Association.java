@@ -147,11 +147,11 @@ public class Association
             conn = DriverManager.getConnection(url,"root","");
             stmt = conn.createStatement();
 
-            rs = stmt.executeQuery("select nomSport from pratiquer, association where association.refAsso = pratiquer.refAsso and association.refAsso = '" + pNomAssociation + "'");
+            rs = stmt.executeQuery("select Sport.numSport, nomSport from sport, pratiquer, association where association.refAsso = pratiquer.refAsso and pratiquer.numSport = sport.numSport and association.refAsso = '" + pNomAssociation + "'");
 
             while (rs.next())
             {
-                SportsPratiques.add(new Sport(rs.getString("nomSport")));
+                SportsPratiques.add(new Sport(rs.getInt("numSport"), rs.getString("nomSport")));
             }
 
             rs.close();

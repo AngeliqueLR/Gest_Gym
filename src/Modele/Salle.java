@@ -57,7 +57,7 @@ public class Salle
             conn = DriverManager.getConnection(url,"root","");
             stmt = conn.createStatement();
 
-            rs = stmt.executeQuery("Select salle.refSalle from salle, accueillir where salle.refSalle = accueillir.refSalle and nomSportAutorise = '" + pNomSport + "' and salle. refSalle not in (select reservation.refSalle from reservation, accueillir where reservation.refSalle = accueillir.refSalle and nomSportAutorise = '" + pNomSport + "' and heureD = '" + pHoraire + "' and date = '" + pDate + "')");
+            rs = stmt.executeQuery("Select salle.refSalle from salle, accueillir where salle.refSalle = accueillir.refSalle and numSportAutorise = '" + pNomSport + "' and salle. refSalle not in (select reservation.refSalle from reservation, accueillir where reservation.refSalle = accueillir.refSalle and nomSportAutorise = '" + pNomSport + "' and heureD = '" + pHoraire + "' and date = '" + pDate + "')");
 
             while (rs.next())
             {
