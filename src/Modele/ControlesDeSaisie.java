@@ -16,8 +16,47 @@ public class ControlesDeSaisie
     
     public static boolean VerifNomSport(String pNomSport)
     {
-        //text.matches("^[a-zA-Z]+$")
-        if(pNomSport.matches("^[a-zA-Z-àâäéèêëîïôöûüùç]+$"))
+        if(pNomSport.matches("^[a-zA-Z-àâäéèêëîïôöûüùç]+$") && pNomSport.length() < 26)
+        {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public static boolean VerifNomAssoc(String pNomAssoc)
+    {
+        if(pNomAssoc.matches("^[a-zA-Z-àâäéèêëîïôöûüùç ]+$") && pNomAssoc.length() < 21)
+        {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public static boolean VerifAdresse(String pAdresse)
+    {
+        if(pAdresse.matches("^[a-zA-Z-àâäéèêëîïôöûüùç 0-9]+$") && pAdresse.length() < 51)
+        {
+            return true;
+        }
+        
+        return false;
+    }
+
+    public static boolean VerifNomResponsablr(String pResponsable)
+    {
+        if(pResponsable.matches("^[a-zA-Z-àâäéèêëîïôöûüùç ]+$") && pResponsable.length() < 31)
+        {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public static boolean VerifVille(String pVille)
+    {
+        if(pVille.matches("^[a-zA-Z-àâäéèêëîïôöûüùç]+$") && pVille.length() < 31)
         {
             return true;
         }

@@ -97,6 +97,7 @@ public class FenFXML_AccueilController implements Initializable
             FenFXML_AssociationController controller = loader.getController();
             controller.setMainApp(mainApp);
             Stage dialogStage = new Stage();
+            dialogStage.setTitle("Association.");
             Scene scene = new Scene(rootLayout);
             dialogStage.setScene(scene);
             dialogStage.showAndWait();
@@ -116,6 +117,7 @@ public class FenFXML_AccueilController implements Initializable
             FenFXML_SportController controller = loader.getController();
             controller.setMainApp(mainApp);
             Stage dialogStage = new Stage();
+            dialogStage.setTitle("Sport.");
             Scene scene = new Scene(rootLayout);
             dialogStage.setScene(scene);
             dialogStage.showAndWait();
@@ -136,6 +138,7 @@ public class FenFXML_AccueilController implements Initializable
             controller.setMainApp(mainApp);
             Stage dialogStage = new Stage();
             Scene scene = new Scene(rootLayout);
+            dialogStage.setTitle("Salle.");
             dialogStage.setScene(scene);
             dialogStage.showAndWait();
         }

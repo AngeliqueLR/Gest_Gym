@@ -18,9 +18,9 @@
           <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.rowIndex="1">
+            <HBox alignment="CENTER_LEFT" spacing="20.0" GridPane.rowIndex="1">
                <children>
-                  <Button layoutX="495.0" layoutY="288.0" mnemonicParsing="false" style="-fx-background-color: #e00202;" text="Ajouter" textFill="WHITE" />
+                  <Button layoutX="495.0" layoutY="288.0" mnemonicParsing="false" onAction="#handleAjoutAssoc" style="-fx-background-color: #e00202;" text="Ajouter" textFill="WHITE" />
                   <Button fx:id="btnModif" layoutX="503.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleModifAssoc" style="-fx-background-color: #5778e0;" text="Modifier" textFill="WHITE" />
                </children>
             </HBox>

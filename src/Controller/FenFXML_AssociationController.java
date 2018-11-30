@@ -65,7 +65,7 @@ public class FenFXML_AssociationController implements Initializable
         colonneNom.setCellValueFactory(new PropertyValueFactory<Planning, String>("NomAssociation"));
         colonneAdresse.setCellValueFactory(new PropertyValueFactory<Planning, String>("Adresse"));
         colonneVille.setCellValueFactory(new PropertyValueFactory<Planning, String>("Ville"));
-        colonneResponsable.setCellValueFactory(new PropertyValueFactory<Planning, String>("NomResponsable"));
+        colonneResponsable.setCellValueFactory/*cucurbitacées*/(new PropertyValueFactory<Planning, String>("NomResponsable"));
         
         listeAssociation.setItems(Assoc);
         
@@ -88,18 +88,40 @@ public class FenFXML_AssociationController implements Initializable
     
     public void handleModifAssoc()
     {
+        MesRequetes.RecupererAssociations();
+        ObservableList<Association> Assoc = FXCollections.observableArrayList();
+        Assoc = Requetes.retournerListeAssociation();
         Association AssocAModif = (Association)listeAssociation.getSelectionModel().getSelectedItem();
+        ObservableList<Association> LesAssoc = null;
+        listeAssociation.setItems(LesAssoc);
         
-        boolean Bool = mainApp.afficheConfirmationDialog(AssocAModif.toString());  
-        /*if(Bool)
+        boolean Bool = mainApp.afficheModifAssoc(AssocAModif, Assoc);  
+        if(Bool)
         {
-            MesRequetes.RecupererSports();
-            
-            ObservableList<Sport> lesSports = null;
-            listeSport.setItems(lesSports);
-            listeSport.setItems(MesRequetes.retournerListeSport());
+            MesRequetes.RecupererAssociations();
+            ObservableList<Association> Assoc2 = FXCollections.observableArrayList();
+            Assoc2 = Requetes.retournerListeAssociation();
+            ObservableList<Association> LesAssoc2 = null;
+            listeAssociation.setItems(LesAssoc2);
+            listeAssociation.setItems(Assoc2);
             btnModif.setVisible(false);
-        }*/
+        }
+    }
+    
+    public void handleAjoutAssoc()
+    {        
+        boolean Bool = mainApp.afficheAjoutAssoc();  
+        if(Bool)
+        {
+            MesRequetes.RecupererAssociations();
+            ObservableList<Association> Assoc = FXCollections.observableArrayList();
+            Assoc = Requetes.retournerListeAssociation();
+            
+            ObservableList<Association> LesAssoc = null;
+            listeAssociation.setItems(LesAssoc);
+            listeAssociation.setItems(Assoc);
+            btnModif.setVisible(false);
+        }
     }
     
 }

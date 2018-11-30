@@ -31,7 +31,7 @@
             </Label>
          </children>
       </GridPane>
-      <TableView fx:id="tableHoraires" fixedCellSize="35.0" layoutX="16.0" layoutY="161.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="288.0" prefWidth="800.0">
+      <TableView fx:id="tableHoraires" fixedCellSize="35.0" layoutX="15.0" layoutY="169.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="288.0" prefWidth="800.0">
         <columns>
           <TableColumn fx:id="columnHoraires" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Horaires" />
             <TableColumn fx:id="columnJ1" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="J1" />
@@ -64,7 +64,7 @@
          <children>
             <Label text="Salle :" />
             <ComboBox fx:id="cmbSalle" onAction="#handleAfficherPlanning" prefHeight="25.0" prefWidth="174.0" GridPane.columnIndex="1" />
-            <Button fx:id="btnPDF" mnemonicParsing="false" onAction="#handleTelechargerPlanning" text="Génerer en PDF" GridPane.columnIndex="3" />
+            <Button fx:id="btnPDF" mnemonicParsing="false" onAction="#handleTelechargerPlanning" style="-fx-background-color: #d02323;" text="Génerer en PDF" textFill="WHITE" GridPane.columnIndex="3" />
          </children>
       </GridPane>
    </children>

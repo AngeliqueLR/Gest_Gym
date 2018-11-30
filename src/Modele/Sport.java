@@ -92,4 +92,15 @@ public class Sport
         return Nom;
     }
 
+    static int retournerNumSport(String pNomSport, ObservableList<Sport> pLesSports)
+    {
+        for(int i=0; i<pLesSports.size(); i++)
+        {
+            if(pLesSports.get(i).toString().equals(pNomSport))
+            {
+                return pLesSports.get(i).getNumSport();
+            }
+        }
+        return -1;
+    }
 }

@@ -5,12 +5,14 @@
  */
 package Controller;
 
+import Modele.Association;
 import Modele.Requetes;
 import Modele.Sport;
 import java.io.IOException;
 import java.time.LocalDate;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -200,7 +202,7 @@ public class MainApp extends Application
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/View/FenFXML_AjoutSport.fxml"));
             AnchorPane page = (AnchorPane)loader.load();
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Ajouter un sport.");
+            dialogStage.setTitle("Modifier un sport.");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
@@ -210,6 +212,71 @@ public class MainApp extends Application
             controleur.setDialogStage(dialogStage);
             
             controleur.getModif(pSport);
+            // Donne accès à la classe principale à la classe controleur
+            controleur.setMainApp(this);
+            
+            // Affiche la boite de dialogue et attend que l'utilisateur la ferme
+            dialogStage.showAndWait();
+            
+            return controleur.isOkClick();
+        }
+        catch(IOException ioe)
+        {
+            System.out.println("ERREUR chargement boite dialogue:" + ioe.getMessage());
+    
+            return false;
+        }
+    }
+    
+    boolean afficheAjoutAssoc()
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/View/FenFXML_AjoutAssociation.fxml"));
+            AnchorPane page = (AnchorPane)loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Ajouter une association.");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            
+            // Place l'étudiant dans le controleur
+            FenFXML_AjoutAssociationController controleur = loader.getController();
+            controleur.setDialogStage(dialogStage);
+            
+            // Donne accès à la classe principale à la classe controleur
+            controleur.setMainApp(this);
+            
+            // Affiche la boite de dialogue et attend que l'utilisateur la ferme
+            dialogStage.showAndWait();
+            
+            return controleur.isOkClick();
+        }
+        catch(IOException ioe)
+        {
+            System.out.println("ERREUR chargement boite dialogue:" + ioe.getMessage());
+    
+            return false;
+        }
+    }
+
+    boolean afficheModifAssoc(Association pAssoc, ObservableList<Association> pLesAssoc)
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/View/FenFXML_AjoutAssociation.fxml"));
+            AnchorPane page = (AnchorPane)loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Modifier une association.");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            
+            // Place l'étudiant dans le controleur
+            FenFXML_AjoutAssociationController controleur = loader.getController();
+            controleur.setDialogStage(dialogStage);
+            
+            controleur.getModif(pAssoc, pLesAssoc);
             // Donne accès à la classe principale à la classe controleur
             controleur.setMainApp(this);
             

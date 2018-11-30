@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -53,9 +54,6 @@ public class FenFXML_ReservationController implements Initializable
     private DatePicker dateDateReserv;
     
     @FXML
-    private Label labelAttention3;
-    
-    @FXML
     private Label labelSalle;
     
     private ObservableList<String> PlageHoraires;
@@ -81,7 +79,6 @@ public class FenFXML_ReservationController implements Initializable
         // TODO
         //System.out.print(Requetes.retournerListeAssociation());
         passage = 0;
-        labelAttention3.setVisible(false);
         labelSalle.setVisible(false);
         cmbSalle.setVisible(false);
         
@@ -101,7 +98,7 @@ public class FenFXML_ReservationController implements Initializable
     
     public void handleAfficherSport() 
     {
-        cmbSport.setItems(cmbAssociation.getValue().getSportPratiques());
+        cmbSport.setItems(cmbAssociation.getValue().getSportsPratiques());
     }
     
     
@@ -109,13 +106,14 @@ public class FenFXML_ReservationController implements Initializable
     ////AFFICHAGE SALLE DISPO////
     ////////////////////////////
     public void handleAfficherSalle() //throws ClassNotFoundException 
-    {
-        labelAttention3.setVisible(false);
-        
+    {        
         LocalDate dateReservation; 
         String plageHoraires;
         Sport Sport;
         
+        labelSalle.setVisible(false);
+        cmbSalle.setVisible(false); 
+                    
         if (cmbAssociation.getValue() != null && dateDateReserv.getValue() != null && cmbHeure.getValue() != null && cmbSport.getValue() != null)
         {   
             /////////VERIF DATE//////////
@@ -140,8 +138,7 @@ public class FenFXML_ReservationController implements Initializable
             if(LocalDate.of(annee, mois, jour).isBefore(LocalDate.of(annee2, mois2, jour2)) && passage == 0) 
             {
                 passage = 0;
-                labelAttention3.setVisible(true);   
-                message = " Attention date incorrecte ";
+                message = " Date incorrecte ";
                 boolean Bool = mainApp.afficheMessageErreur(message);  
             }
             else
@@ -162,9 +159,11 @@ public class FenFXML_ReservationController implements Initializable
 
                 /////SI AUCUNE SALLE DISPO : MESSAGE ERREUR
                 if(SalleSport.isEmpty()) 
-                {                
+                {    
+                    labelSalle.setVisible(false);
+                    cmbSalle.setVisible(false); 
                     message = " Aucune salle disponible le " + jour + "/" + mois + "/" + annee + " de " + Horaires[0] + "h à " +  Horaires[1] + "h. ";
-                    boolean Bool = mainApp.afficheMessageErreur(message);  
+                    boolean Bool = mainApp.afficheMessageErreur(message);   
                 }
                 else
                 {
@@ -199,9 +198,8 @@ public class FenFXML_ReservationController implements Initializable
         /////VERIFIE QUE TOUTES LES INFOS SOIENT RENSEIGNEES
         if(cmbSalle.getValue() == null)
         {
-            message = " Attention : Un ou plusieurs champs ne sont pas renseignés. ";
-            boolean Bool = mainApp.afficheMessageErreur(message);  
-            
+            message = " Un ou plusieurs champs ne sont pas renseignés. ";
+            boolean Bool = mainApp.afficheMessageErreur(message); 
         }
         else
         {
@@ -240,14 +238,13 @@ public class FenFXML_ReservationController implements Initializable
             /////SI INCORRECTE MESSAGE ERREUR
             if(LocalDate.of(annee, mois, jour).isBefore(LocalDate.of(annee2, mois2, jour2)))
             {
-                labelAttention3.setVisible(true);   
-                message = " Attention date incorrecte ";
-                boolean Bool = mainApp.afficheMessageErreur(message);  
+                message = " Date incorrecte ";
+                boolean Bool = mainApp.afficheMessageErreur(message); 
             }
             else
             {
                 /////AFFICHE BOITE DE DIALOGUE CONFIRMATION
-                message ="Confirmez vous la réservation de la salle " + nomSalle + " le " + String.valueOf(jour) + "/" + String.valueOf(mois) + "/" + String.valueOf(annee) + "de " + HeureDebut + "h à " + HeureFin + "h.";
+                message ="Confirmez vous la réservation de la salle " + nomSalle + " le " + String.valueOf(jour) + "/" + String.valueOf(mois) + "/" + String.valueOf(annee) + " de " + HeureDebut + "h à " + HeureFin + "h.";
                 boolean okClick = mainApp.afficheConfirmationDialog(message);
 
                 if (okClick)
