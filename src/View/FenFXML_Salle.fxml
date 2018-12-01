@@ -1,11 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FenFXML_SalleController">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="403.0" prefWidth="633.0" style="-fx-background-color: white;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Controller.FenFXML_SalleController">
+   <children>
+      <GridPane layoutX="14.0" layoutY="14.0" prefHeight="379.0" prefWidth="397.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="20.0" GridPane.rowIndex="1">
+               <children>
+                  <Button layoutX="495.0" layoutY="288.0" mnemonicParsing="false" onAction="#handleAjoutSalle" style="-fx-background-color: #e00202;" text="Ajouter" textFill="WHITE" />
+                  <Button fx:id="btnModif" layoutX="503.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleModifSalle" style="-fx-background-color: #5778e0;" text="Modifier" textFill="WHITE" />
+               </children>
+            </HBox>
+            <TableView fx:id="listeSalle" onMouseClicked="#handleChoixSalle" prefHeight="338.0" prefWidth="395.0">
+               <columns>
+                  <TableColumn fx:id="colonneNom" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Nom" />
+                  <TableColumn fx:id="colonneSuperficie" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Superficie " />
+                  <TableColumn fx:id="colonneRevetement" maxWidth="131.0" minWidth="131.0" prefWidth="131.0" text="Revêtement" />
+               </columns>
+            </TableView>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="338.0" minHeight="10.0" prefHeight="338.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <ImageView fitHeight="164.0" fitWidth="215.0" layoutX="417.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Image/Salle2.png" />
+         </image>
+      </ImageView>
+   </children>
 </AnchorPane>

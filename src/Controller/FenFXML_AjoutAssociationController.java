@@ -303,10 +303,9 @@ public class FenFXML_AjoutAssociationController implements Initializable
         return okClick;
     }
 
-    void getModif(Association pAssoc, ObservableList<Association> pLesAssoc)
+    void getModif(Association pAssoc)
     {
         Modif = 1;
-        LesAssociation = pLesAssoc;
         AssocAModifier = pAssoc;
         btnAjout.setText("Modifier");
         texteAssoc.setText(pAssoc.toString());

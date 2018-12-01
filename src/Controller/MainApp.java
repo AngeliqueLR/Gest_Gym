@@ -7,6 +7,7 @@ package Controller;
 
 import Modele.Association;
 import Modele.Requetes;
+import Modele.Salle;
 import Modele.Sport;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -260,7 +261,7 @@ public class MainApp extends Application
         }
     }
 
-    boolean afficheModifAssoc(Association pAssoc, ObservableList<Association> pLesAssoc)
+    boolean afficheModifAssoc(Association pAssoc)
     {
         try
         {
@@ -276,7 +277,40 @@ public class MainApp extends Application
             FenFXML_AjoutAssociationController controleur = loader.getController();
             controleur.setDialogStage(dialogStage);
             
-            controleur.getModif(pAssoc, pLesAssoc);
+            controleur.getModif(pAssoc);
+            // Donne accès à la classe principale à la classe controleur
+            controleur.setMainApp(this);
+            
+            // Affiche la boite de dialogue et attend que l'utilisateur la ferme
+            dialogStage.showAndWait();
+            
+            return controleur.isOkClick();
+        }
+        catch(IOException ioe)
+        {
+            System.out.println("ERREUR chargement boite dialogue:" + ioe.getMessage());
+    
+            return false;
+        }
+    }
+
+    boolean afficheModifSalle(Salle pSalleAModif)
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/View/FenFXML_AjoutSalle.fxml"));
+            AnchorPane page = (AnchorPane)loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Modifier une salle.");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            
+            // Place l'étudiant dans le controleur
+            FenFXML_AjoutSalleController controleur = loader.getController();
+            controleur.setDialogStage(dialogStage);
+            
+            controleur.getModif(pSalleAModif);
             // Donne accès à la classe principale à la classe controleur
             controleur.setMainApp(this);
             

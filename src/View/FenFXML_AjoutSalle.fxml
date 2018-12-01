@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="323.0" prefWidth="456.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Controller.FenFXML_AjoutSalleController">
+   <children>
+      <GridPane layoutX="14.0" layoutY="14.0" prefHeight="190.0" prefWidth="275.0">
+         <children>
+            <Label text="Nom" />
+            <Label text="Superficie" GridPane.rowIndex="1" />
+            <Label text="Revêtement" GridPane.rowIndex="2" />
+            <TextField fx:id="texteSalle" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" />
+            <TextField fx:id="texteSurface" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="texteRevetement" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="79.0" />
+            <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="304.0" minWidth="10.0" prefWidth="193.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="gridpaneSports" layoutX="12.0" layoutY="204.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="62.0" prefWidth="400.0">
+         <children>
+            <Label text="Sports" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <Button fx:id="btnAjout" layoutX="14.0" layoutY="284.0" mnemonicParsing="false" style="-fx-background-color: #c21414;" text="Ajouter" textFill="WHITE" />
+      <ImageView fitHeight="122.0" fitWidth="150.0" layoutX="292.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Image/AjoutSalle.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

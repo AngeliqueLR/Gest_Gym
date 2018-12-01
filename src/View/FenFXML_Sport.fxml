@@ -27,7 +27,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btnModif" layoutX="442.0" layoutY="239.0" mnemonicParsing="false" onAction="#handleModifSport" prefHeight="15.0" prefWidth="63.0" style="-fx-background-color: white; -fx-border-color: #dd290d; -fx-border-radius: 4;" text="Modifier" textFill="#dd290d" />
+                  <Button fx:id="btnModif" layoutX="442.0" layoutY="239.0" mnemonicParsing="false" onAction="#handleModifSport" prefHeight="15.0" prefWidth="63.0" style="-fx-background-color: #cc481c; -fx-border-radius: 4;" text="Modifier" textFill="WHITE" />
                </children>
             </HBox>
          </children>

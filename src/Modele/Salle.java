@@ -25,12 +25,50 @@ public class Salle
     private String Nom;
     private float Surface;
     private String Revetement;
+    private ObservableList<Sport> SportsAutorises;
+    private Connection conn;
+    private Statement stmt;
+    private ResultSet rs;
+    private String pilote = "org.gjt.mm.mysql.Driver";
+    private String url = "jdbc:mysql://localhost/gest_gymn";
         
     public Salle(String pNom, float pSurface, String pRevetement)
     {
         Nom = pNom;
         Surface = pSurface;
         Revetement = pRevetement;
+        SportsAutorises = FXCollections.observableArrayList();
+        try
+        {
+            Class.forName(pilote);
+
+            /////////////////////////////
+            /////RECUPERATION SPORT/////
+            ///////////////////////////
+            conn = DriverManager.getConnection(url,"root","");
+            stmt = conn.createStatement();
+
+            rs = stmt.executeQuery("select Sport.numSport, nomSport from sport, accueillir, salle where salle.refSalle = accueillir.refSalle and accueillir.numSportAutorise = sport.numSport and salle.refSalle = '" + pNom + "'");
+            
+            while (rs.next())
+            {
+                SportsAutorises.add(new Sport(rs.getInt("numSport"), rs.getString("nomSport")));
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        }
+        catch (SQLException E)
+	{
+            System.out.println("SQLException: " + E.getMessage());
+            System.out.println("SQLState:   " + E.getSQLState());
+            System.out.println("VendorError:  " + E.getErrorCode());
+        } 
+        catch (ClassNotFoundException ex)
+        {
+            Logger.getLogger(Salle.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public Salle(String pNom)
@@ -86,4 +124,46 @@ public class Salle
     {
         return Nom;
     }
+
+    public String getNom()
+    {
+        return Nom;
+    }
+
+    public void setNom(String Nom)
+    {
+        this.Nom = Nom;
+    }
+
+    public float getSurface()
+    {
+        return Surface;
+    }
+    
+    public String getSurface1()
+    {
+        return String.valueOf(Surface) + " m²";
+    }
+
+    public void setSurface(float Surface)
+    {
+        this.Surface = Surface;
+    }
+
+    public String getRevetement()
+    {
+        return Revetement;
+    }
+
+    public void setRevetement(String Revetement)
+    {
+        this.Revetement = Revetement;
+    }
+
+    public ObservableList<Sport> getSportsAutorises()
+    {
+        return SportsAutorises;
+    }
+    
+    
 }

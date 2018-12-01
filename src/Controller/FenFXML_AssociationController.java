@@ -88,14 +88,9 @@ public class FenFXML_AssociationController implements Initializable
     
     public void handleModifAssoc()
     {
-        MesRequetes.RecupererAssociations();
-        ObservableList<Association> Assoc = FXCollections.observableArrayList();
-        Assoc = Requetes.retournerListeAssociation();
         Association AssocAModif = (Association)listeAssociation.getSelectionModel().getSelectedItem();
-        ObservableList<Association> LesAssoc = null;
-        listeAssociation.setItems(LesAssoc);
         
-        boolean Bool = mainApp.afficheModifAssoc(AssocAModif, Assoc);  
+        boolean Bool = mainApp.afficheModifAssoc(AssocAModif);  
         if(Bool)
         {
             MesRequetes.RecupererAssociations();
