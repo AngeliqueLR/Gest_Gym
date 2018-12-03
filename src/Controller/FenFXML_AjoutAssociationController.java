@@ -93,6 +93,10 @@ public class FenFXML_AjoutAssociationController implements Initializable
     private ObservableList<String> SportsNonCoches  = FXCollections.observableArrayList();
     
     private ObservableList<Association> LesAssociation  = FXCollections.observableArrayList();
+    private boolean okAssoc;
+    private boolean okAdresse;
+    private boolean okResponsable;
+    private boolean okVille;
         
     /**
      * Initializes the controller class.
@@ -166,6 +170,8 @@ public class FenFXML_AjoutAssociationController implements Initializable
     
     public void handleAjout()
     {        
+        SportsNonCoches.removeAll(SportsNonCoches);
+        SportsCoches.removeAll(SportsCoches);
         ////VERIFICATION QUE TOUS LES CHAMPS SOIENT RENSEIGNES (SAUF LA ZONE DE TEXTE : VILLE)
         if(texteAssoc.getText().equals("") || texteAdresse.getText().equals("") || texteResp.getText().equals("") || cmbVille.getValue() == null)
         {
@@ -174,7 +180,7 @@ public class FenFXML_AjoutAssociationController implements Initializable
         else
         {
             ////SI LA CASE AUTRE EST COCHEE VERIFICATION QUE LA ZONE DE TEXTE : VILLE SOIT RENSEIGNEE
-            if(cmbVille.getValue().equals("Autre") && texteVille.equals(""))
+            if(cmbVille.getValue().equals("Autre") && texteVille.getText().equals(""))
             {
                 boolean Bool = mainApp.afficheMessageErreur(" Un ou plusieurs champs ne sont pas renseignés. ");  
             }
@@ -193,6 +199,7 @@ public class FenFXML_AjoutAssociationController implements Initializable
                         else
                         {
                             nomAssoc = texteAssoc.getText();
+                            okAssoc = true;
                         }                        
                     }
                     else
@@ -200,10 +207,15 @@ public class FenFXML_AjoutAssociationController implements Initializable
                         boolean Bool = mainApp.afficheMessageErreur("Nom association erroné."); 
                     }
                 }
+                else
+                {
+                    okAssoc = true;
+                }
                 ////VERIFICATION ADRESSE
                 if(ControlesDeSaisie.VerifAdresse(texteAdresse.getText()))// && ControlesDeSaisie.VerifNomAssoc(texteResp.getText()))
                 {
                     adresse = texteAdresse.getText();
+                    okAdresse = true;
                 }
                 else
                 {
@@ -213,6 +225,7 @@ public class FenFXML_AjoutAssociationController implements Initializable
                 if(ControlesDeSaisie.VerifNomResponsablr(texteResp.getText()))
                 {
                     responsable = texteResp.getText();
+                    okResponsable = true;
                 }
                 else
                 {
@@ -225,6 +238,7 @@ public class FenFXML_AjoutAssociationController implements Initializable
                     if(ControlesDeSaisie.VerifVille(texteVille.getText()))
                     {
                         ville = texteVille.getText();
+                        okVille = true;
                     }
                     else
                     {
@@ -234,57 +248,60 @@ public class FenFXML_AjoutAssociationController implements Initializable
                 else
                 {
                     ville = cmbVille.getValue();
+                    okVille = true;
                 }
-                ////RECUPERATION DES SPORTS
-                for(int i=0; i<LesCheckBox.size(); i++)
+                if((okAdresse) && (okAssoc) && (okResponsable) && (okVille))
                 {
-                    if(LesCheckBox.get(i).getLaCheckBox().isSelected())
+                    ////RECUPERATION DES SPORTS
+                    for(int i=0; i<LesCheckBox.size(); i++)
                     {
-                        SportsCoches.add(LesCheckBox.get(i).getNom());
+                        if(LesCheckBox.get(i).getLaCheckBox().isSelected())
+                        {
+                            SportsCoches.add(LesCheckBox.get(i).getNom());
+                        }
+                        else
+                        {
+                            SportsNonCoches.add(LesCheckBox.get(i).getNom());
+                        }
+                    }
+                    if(Modif==0)
+                    {
+                        String Sports = "";
+                        for(int i=0; i<SportsCoches.size(); i++)
+                        {
+                            Sports = Sports + " - " + SportsCoches.get(i);
+                        }
+                        boolean Bool = mainApp.afficheConfirmationDialog("Voulez vous vraiment insérer l'association : " + nomAssoc + " située " + adresse + " à " + ville + " ayant pour responsable " + responsable + " et pratiquant les sports : \n" + Sports);
+                        if(Bool)
+                        {
+                            MesRequetes.insererAssociation(nomAssoc, adresse, ville, responsable, SportsCoches);
+
+                            boolean Bool1 = mainApp.afficheMessageReussite("Insertion réussie");
+
+                            dialogStage.close();
+                            okClick = true;      
+                        }
                     }
                     else
                     {
-                        SportsNonCoches.add(LesCheckBox.get(i).getNom());
-                    }
-                }
-                if(Modif==0)
-                {
-                    String Sports = "";
-                    for(int i=0; i<SportsCoches.size(); i++)
-                    {
-                        Sports = Sports + " - " + SportsCoches.get(i);
-                    }
-                    boolean Bool = mainApp.afficheConfirmationDialog("Voulez vous vraiment insérer l'association : " + nomAssoc + " située " + adresse + " à " + ville + " ayant pour responsable " + responsable + " et pratiquant les sports : \n" + Sports);
-                    if(Bool)
-                    {
-                        MesRequetes.insererAssociation(nomAssoc, adresse, ville, responsable, SportsCoches);
-                        
-                        boolean Bool1 = mainApp.afficheMessageReussite("Insertion réussie");
-                        
-                        dialogStage.close();
-                        okClick = true;      
-                    }
-                }
-                else
-                {
-                    String Sports = "";
-                    for(int i=0; i<SportsCoches.size(); i++)
-                    {
-                        Sports = Sports + " - " + SportsCoches.get(i);
-                    }
-                    boolean Bool = mainApp.afficheConfirmationDialog("Voulez vous vraiment modifiée l'association : " + AssocAModifier.toString() + " avec les données suivantes : " + adresse + " à " + ville + " ayant pour responsable " + responsable + " et pratiquant les sports : \n" + Sports);
-                    if(Bool)
-                    {
-                        MesRequetes.modifierAssociation(AssocAModifier.toString(), adresse, ville, responsable, SportsCoches, SportsNonCoches, LesAssociation);
-                        
-                        boolean Bool1 = mainApp.afficheMessageReussite("Modification réussie");
-                        
-                        dialogStage.close();
-                        okClick = true;      
+                        String Sports = "";
+                        for(int i=0; i<SportsCoches.size(); i++)
+                        {
+                            Sports = Sports + " - " + SportsCoches.get(i);
+                        }
+                        boolean Bool = mainApp.afficheConfirmationDialog("Voulez vous vraiment modifiée l'association : " + AssocAModifier.toString() + " avec les données suivantes : " + adresse + " à " + ville + " ayant pour responsable " + responsable + " et pratiquant les sports : \n" + Sports);
+                        if(Bool)
+                        {
+                            MesRequetes.modifierAssociation(AssocAModifier.toString(), adresse, ville, responsable, SportsCoches, SportsNonCoches, LesAssociation);
+
+                            boolean Bool1 = mainApp.afficheMessageReussite("Modification réussie");
+
+                            dialogStage.close();
+                            okClick = true;      
+                        }
                     }
                 }
             }
-            
         }
     }
     
@@ -303,7 +320,7 @@ public class FenFXML_AjoutAssociationController implements Initializable
         return okClick;
     }
 
-    void getModif(Association pAssoc)
+    void getModif(Association pAssoc, ObservableList<Association> pLesAssoc)
     {
         Modif = 1;
         AssocAModifier = pAssoc;
@@ -313,6 +330,7 @@ public class FenFXML_AjoutAssociationController implements Initializable
         texteAdresse.setText(pAssoc.getAdresse());
         texteResp.setText(pAssoc.getNomResponsable());
         texteAssoc.setDisable(true);
+        LesAssociation = pLesAssoc;
         
         SportsAssoc = AssocAModifier.getSportsPratiques();
         

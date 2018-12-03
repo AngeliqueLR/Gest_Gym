@@ -31,8 +31,8 @@ public class Requetes
     private String pilote;
     private String url;
     private Association uneAssocitation;
-    private static ObservableList<Association> LesAssociations;
-    private static ObservableList<Salle> LesSalles;
+    private ObservableList<Association> LesAssociations;
+    private ObservableList<Salle> LesSalles;
     private static ObservableList<Sport> LesSports;
     private static ObservableList<Planning> MonPlanning;
 
@@ -197,7 +197,7 @@ public class Requetes
 	}
     }
     
-    public static ObservableList<Association> retournerListeAssociation()
+    public ObservableList<Association> retournerListeAssociation()
     {
         return LesAssociations;
     }
@@ -313,7 +313,7 @@ public class Requetes
     public void modifierAssociation(String pNomAssoc, String pAdresse, String pVille, String pResponsable, ObservableList<String> pSportsCoches, ObservableList<String> pSportsNonCoches, ObservableList<Association> pLesAssoc)
     {
         try
-	{
+	{            
             Association Assoc;
             Assoc = Association.retournerAssoc(pNomAssoc, pLesAssoc);
             if(!(Assoc.getAdresse().equals(pAdresse)))
@@ -422,7 +422,7 @@ public class Requetes
 	}
     }
     
-    public static ObservableList<Salle> retournerListeSalle()
+    public ObservableList<Salle> retournerListeSalle()
     {
         return LesSalles;
     } 
@@ -462,7 +462,153 @@ public class Requetes
         
         return SalleSport;
     }
+        
+    public boolean SalleExiste(String pSalle)
+    {
+        boolean Existe = true;
+        try
+	{
+            Class.forName(pilote);
+            conn = DriverManager.getConnection(url,"root","");
+            stmt = conn.createStatement();			            
+            rs = stmt.executeQuery("select * from salle where refSalle = '" + pSalle + "'");			            
+            
+            if(!(rs.next()))
+            {
+                Existe = false;
+            }
+            
+            rs.close();
+            stmt.close();
+            conn.close();
+            
+            return Existe;
+	}
+	catch (SQLException E)
+	{
+            System.out.println("SQLException: " + E.getMessage());
+            System.out.println("SQLState:   " + E.getSQLState());
+            System.out.println("VendorError:  " + E.getErrorCode());
+	}
+	catch (ClassNotFoundException e)
+	{
+            System.out.println("ERREUR Driver " + e.getMessage());
+	}
+        
+        return Existe;
+    }
     
+    public void insererSalle(String pNomSalle, String pSurface, String pRevetement, ObservableList<String> pSportsCoches)
+    {
+        try
+	{
+            Class.forName(pilote);
+            conn = DriverManager.getConnection(url,"root","");
+            stmt = conn.createStatement();			            
+            stmt.executeUpdate("insert into salle values ('" + pNomSalle + "', '" + pSurface + "', '" + pRevetement + "')");			            
+            
+            rs.close();
+            stmt.close();
+            conn.close();
+            
+            for(int i=0; i<pSportsCoches.size(); i++)
+            {
+                Class.forName(pilote);
+                conn = DriverManager.getConnection(url,"root","");
+                int numSport;
+                numSport = Sport.retournerNumSport(pSportsCoches.get(i), LesSports);
+                if(numSport != -1)
+                {
+                    CallableStatement cStmt = conn.prepareCall("{call AjoutSportAutorise('" + pNomSalle + "', '" + numSport + "')}");
+                    cStmt.executeUpdate();
+                }
+
+                conn.close();
+            }
+            
+	}
+	catch (SQLException E)
+	{
+            System.out.println("SQLException: " + E.getMessage());
+            System.out.println("SQLState:   " + E.getSQLState());
+            System.out.println("VendorError:  " + E.getErrorCode());
+	}
+	catch (ClassNotFoundException e)
+	{
+            System.out.println("ERREUR Driver " + e.getMessage());
+	}
+    }
+
+    public void modifierSalle(String pNomSalle, String pSurface, String pRevetement, ObservableList<String> pSportsCoches, ObservableList<String> pSportsNonCoches, ObservableList<Salle> pLesSalles)
+    {
+        try
+	{            
+            Salle uneSalle;
+            uneSalle = Salle.retournerSalle(pNomSalle, pLesSalles);
+            float maSurface = Float.parseFloat(pSurface);
+            System.out.println(maSurface);
+            if(!(uneSalle.getSurface() == maSurface))
+            {
+                Class.forName(pilote);
+                conn = DriverManager.getConnection(url,"root","");
+                stmt = conn.createStatement();			            
+                stmt.executeUpdate("update salle set surface = '" + pSurface + "' where refSalle = '" + pNomSalle + "'");
+
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+            if(!(uneSalle.getRevetement().equals(pRevetement)))
+            {
+                Class.forName(pilote);
+                conn = DriverManager.getConnection(url,"root","");
+                stmt = conn.createStatement();			            
+                stmt.executeUpdate("update salle set revetement = '" + pRevetement + "' where refSalle = '" + pNomSalle + "'");
+
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+            
+            for(int i=0; i<pSportsCoches.size(); i++)
+            {
+                Class.forName(pilote);
+                conn = DriverManager.getConnection(url,"root","");
+                int numSport;
+                numSport = Sport.retournerNumSport(pSportsCoches.get(i), LesSports);
+                if(numSport != -1)
+                {
+                    CallableStatement cStmt = conn.prepareCall("{call AjoutSportAutorise('" + pNomSalle + "', '" + numSport + "')}");
+                    cStmt.executeUpdate();
+                }
+                conn.close();
+            }
+            
+            for(int i=0; i<pSportsNonCoches.size(); i++)
+            {
+                Class.forName(pilote);
+                conn = DriverManager.getConnection(url,"root","");
+                int numSport;
+                numSport = Sport.retournerNumSport(pSportsNonCoches.get(i), LesSports);
+                if(numSport != -1)
+                {
+                    CallableStatement cStmt = conn.prepareCall("{call SupprSportAutorise('" + pNomSalle + "', '" + numSport + "')}");
+                    cStmt.executeUpdate();
+                }
+                conn.close();
+            }      
+	}
+	catch (SQLException E)
+	{
+            System.out.println("SQLException: " + E.getMessage());
+            System.out.println("SQLState:   " + E.getSQLState());
+            System.out.println("VendorError:  " + E.getErrorCode());
+	}
+	catch (ClassNotFoundException e)
+	{
+            System.out.println("ERREUR Driver " + e.getMessage());
+	}
+    }
     ////////////////////////////////
     //////////RESERVATION//////////
     //////////////////////////////

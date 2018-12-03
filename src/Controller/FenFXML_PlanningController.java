@@ -111,7 +111,7 @@ public class FenFXML_PlanningController implements Initializable
         MesRequetes.RecupererSalle();
         
         tableHoraires.setVisible(false);
-        cmbSalle.setItems(Requetes.retournerListeSalle());
+        cmbSalle.setItems(MesRequetes.retournerListeSalle());
         uneRequete = new Requetes();
         
         tabJour[0] = "Horaires";        

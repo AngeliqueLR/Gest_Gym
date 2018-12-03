@@ -82,7 +82,7 @@ public class FenFXML_ReservationController implements Initializable
         labelSalle.setVisible(false);
         cmbSalle.setVisible(false);
         
-        cmbAssociation.setItems(Requetes.retournerListeAssociation());
+        cmbAssociation.setItems(MesRequetes.retournerListeAssociation());
         
         PlageHoraires = FXCollections.observableArrayList();
         PlageHoraires.add("08:00:00-10:00:00");

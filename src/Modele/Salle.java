@@ -164,6 +164,18 @@ public class Salle
     {
         return SportsAutorises;
     }
+
+    public static Salle retournerSalle(String pNomSalle, ObservableList<Salle> pLesSalles)
+    {
+        for(int i=0; i<pLesSalles.size(); i++)
+        {
+            if(pLesSalles.get(i).toString().equals(pNomSalle))
+            {
+                return pLesSalles.get(i);
+            }
+        }
+        return null;
+    }
     
     
 }

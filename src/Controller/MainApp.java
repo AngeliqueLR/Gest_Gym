@@ -261,7 +261,7 @@ public class MainApp extends Application
         }
     }
 
-    boolean afficheModifAssoc(Association pAssoc)
+    boolean afficheModifAssoc(Association pAssoc, ObservableList<Association> pLesAssoc)
     {
         try
         {
@@ -277,7 +277,7 @@ public class MainApp extends Application
             FenFXML_AjoutAssociationController controleur = loader.getController();
             controleur.setDialogStage(dialogStage);
             
-            controleur.getModif(pAssoc);
+            controleur.getModif(pAssoc, pLesAssoc);
             // Donne accès à la classe principale à la classe controleur
             controleur.setMainApp(this);
             
@@ -294,7 +294,7 @@ public class MainApp extends Application
         }
     }
 
-    boolean afficheModifSalle(Salle pSalleAModif)
+    boolean afficheModifSalle(Salle pSalleAModif, ObservableList<Salle> pSalles)
     {
         try
         {
@@ -310,7 +310,39 @@ public class MainApp extends Application
             FenFXML_AjoutSalleController controleur = loader.getController();
             controleur.setDialogStage(dialogStage);
             
-            controleur.getModif(pSalleAModif);
+            controleur.getModif(pSalleAModif, pSalles);
+            // Donne accès à la classe principale à la classe controleur
+            controleur.setMainApp(this);
+            
+            // Affiche la boite de dialogue et attend que l'utilisateur la ferme
+            dialogStage.showAndWait();
+            
+            return controleur.isOkClick();
+        }
+        catch(IOException ioe)
+        {
+            System.out.println("ERREUR chargement boite dialogue:" + ioe.getMessage());
+    
+            return false;
+        }
+    }
+
+    boolean afficheAjoutSalle()
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/View/FenFXML_AjoutSalle.fxml"));
+            AnchorPane page = (AnchorPane)loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Ajouter une salle.");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            
+            // Place l'étudiant dans le controleur
+            FenFXML_AjoutSalleController controleur = loader.getController();
+            controleur.setDialogStage(dialogStage);
+            
             // Donne accès à la classe principale à la classe controleur
             controleur.setMainApp(this);
             

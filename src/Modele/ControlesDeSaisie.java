@@ -63,4 +63,34 @@ public class ControlesDeSaisie
         
         return false;
     }
+    
+    public static boolean VerifNomSalle(String pSalle)
+    {
+        if(pSalle.matches("^[A-Z0-9]+$") && pSalle.length() < 6)
+        {
+            return true;
+        }
+        
+        return false;
+    }
+
+    public static boolean VerifSurface(String pSurface)
+    {
+        if(pSurface.matches("^[0-9.]+$"))
+        {
+            return true;
+        }
+        
+        return false;
+    }
+
+    public static boolean VerifRevetement(String pRevetement)
+    {
+        if(pRevetement.matches("^[a-zA-Z-àâäéèêëîïôöûüùç ]+$") && pRevetement.length() < 31)
+        {
+            return true;
+        }
+        
+        return false;
+    }
 }

@@ -60,7 +60,7 @@ public class FenFXML_AssociationController implements Initializable
         MesRequetes.RecupererAssociations();
         
         ObservableList<Association> Assoc = FXCollections.observableArrayList();
-        Assoc = Requetes.retournerListeAssociation();
+        Assoc = MesRequetes.retournerListeAssociation();
         
         colonneNom.setCellValueFactory(new PropertyValueFactory<Planning, String>("NomAssociation"));
         colonneAdresse.setCellValueFactory(new PropertyValueFactory<Planning, String>("Adresse"));
@@ -88,17 +88,17 @@ public class FenFXML_AssociationController implements Initializable
     
     public void handleModifAssoc()
     {
+        ObservableList<Association> Assoc = FXCollections.observableArrayList();
+        Assoc = MesRequetes.retournerListeAssociation();  
         Association AssocAModif = (Association)listeAssociation.getSelectionModel().getSelectedItem();
         
-        boolean Bool = mainApp.afficheModifAssoc(AssocAModif);  
+        boolean Bool = mainApp.afficheModifAssoc(AssocAModif, Assoc);  
         if(Bool)
         {
+            Assoc.removeAll(Assoc);
             MesRequetes.RecupererAssociations();
-            ObservableList<Association> Assoc2 = FXCollections.observableArrayList();
-            Assoc2 = Requetes.retournerListeAssociation();
-            ObservableList<Association> LesAssoc2 = null;
-            listeAssociation.setItems(LesAssoc2);
-            listeAssociation.setItems(Assoc2);
+            Assoc = MesRequetes.retournerListeAssociation();
+            listeAssociation.setItems(Assoc);
             btnModif.setVisible(false);
         }
     }
@@ -108,12 +108,11 @@ public class FenFXML_AssociationController implements Initializable
         boolean Bool = mainApp.afficheAjoutAssoc();  
         if(Bool)
         {
-            MesRequetes.RecupererAssociations();
             ObservableList<Association> Assoc = FXCollections.observableArrayList();
-            Assoc = Requetes.retournerListeAssociation();
-            
-            ObservableList<Association> LesAssoc = null;
-            listeAssociation.setItems(LesAssoc);
+            Assoc = MesRequetes.retournerListeAssociation();
+            Assoc.removeAll(Assoc);
+            MesRequetes.RecupererAssociations();
+            Assoc = MesRequetes.retournerListeAssociation();
             listeAssociation.setItems(Assoc);
             btnModif.setVisible(false);
         }

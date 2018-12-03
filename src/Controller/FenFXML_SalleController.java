@@ -56,7 +56,7 @@ public class FenFXML_SalleController implements Initializable
         MesRequetes.RecupererSalle();
         
         ObservableList<Salle> Salles = FXCollections.observableArrayList();
-        Salles = Requetes.retournerListeSalle();
+        Salles = MesRequetes.retournerListeSalle();
         
         colonneNom.setCellValueFactory(new PropertyValueFactory<Planning, String>("nom"));
         colonneSuperficie.setCellValueFactory(new PropertyValueFactory<Planning, String>("surface1"));
@@ -83,35 +83,35 @@ public class FenFXML_SalleController implements Initializable
     
     public void handleModifSalle()
     {
-        Salle SalleAModif = (Salle)listeSalle.getSelectionModel().getSelectedItem();
+        ObservableList<Salle> Salles = FXCollections.observableArrayList();
+        Salles = MesRequetes.retournerListeSalle();  
+        Salle SalleAModif = (Salle)listeSalle.getSelectionModel().getSelectedItem();    
         
-        boolean Bool = mainApp.afficheModifSalle(SalleAModif);  
-        /*if(Bool)
+        boolean Bool = mainApp.afficheModifSalle(SalleAModif, Salles);  
+        if(Bool)
         {
+            Salles.removeAll(Salles);
             MesRequetes.RecupererSalle();
-            ObservableList<Salle> Salle2 = FXCollections.observableArrayList();
-            Salle2 = Requetes.retournerListeSalle();
-            ObservableList<Salle> LesSalles2 = null;
-            listeSalle.setItems(LesSalles2);
-            listeSalle.setItems(Salle2);
+            Salles = MesRequetes.retournerListeSalle();
+            listeSalle.setItems(Salles);
             btnModif.setVisible(false);
-        }*/
+        }
     }
     
     public void handleAjoutSalle()
     {        
-        /*boolean Bool = mainApp.afficheAjoutAssoc();  
+        boolean Bool = mainApp.afficheAjoutSalle();  
         if(Bool)
         {
-            MesRequetes.RecupererAssociations();
-            ObservableList<Association> Assoc = FXCollections.observableArrayList();
-            Assoc = Requetes.retournerListeAssociation();
-            
-            ObservableList<Association> LesAssoc = null;
-            listeAssociation.setItems(LesAssoc);
-            listeAssociation.setItems(Assoc);
+            ObservableList<Salle> Salles = FXCollections.observableArrayList();
+            Salles = MesRequetes.retournerListeSalle();  
+            Salle SalleAModif = (Salle)listeSalle.getSelectionModel().getSelectedItem();    
+            Salles.removeAll(Salles);
+            MesRequetes.RecupererSalle();
+            Salles = MesRequetes.retournerListeSalle();
+            listeSalle.setItems(Salles);
             btnModif.setVisible(false);
-        }*/
+        }
     }
     
 }
